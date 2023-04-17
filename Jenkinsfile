@@ -20,5 +20,11 @@ pipeline {
                 '''
             }
         }
+            post {
+                always {
+                    sh ' docker image prune -a --filter "until=24d"'
+                }
+            }
+        }
     }
 }
