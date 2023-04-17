@@ -19,10 +19,10 @@ pipeline {
 
                 '''
             }
-        }
+
             post {
                 always {
-                    sh ' docker image prune -a --filter "until=2d" --force'
+                    sh ' docker image prune -a --filter "until=48h" --force'
                 }
             }
         }
