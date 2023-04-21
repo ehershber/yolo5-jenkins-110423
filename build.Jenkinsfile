@@ -14,15 +14,25 @@ pipeline {
 
                 aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin $REGISTRY_URL
                 docker build -t $IMAGE_NAME:$BUILD_NUMBER .
+                '''
+
+                withCredentials([
+                string(credentialsId: 'snyk_token', variable: 'SNYK_TOKEN')]) {
+                    sh '''
+                        snyk container test $IMAGE_NAME:$BUILD_NUMBER  --severity-threshold=high --file=Dockerfile
+
+                    '''
+               }
+
+                sh '''
                 docker tag $IMAGE_NAME:$BUILD_NUMBER $REGISTRY_URL/$IMAGE_NAME:$BUILD_NUMBER
                 docker push $REGISTRY_URL/$IMAGE_NAME:$BUILD_NUMBER
-
                 '''
             }
 
             post {
                 always {
-                    sh ' docker image prune -a --filter "until=12h" --force'
+                    sh ' docker image prune -a --filter "until=24h" --force'
                 }
             }
         }
