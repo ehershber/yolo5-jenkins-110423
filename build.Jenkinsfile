@@ -2,7 +2,7 @@ pipeline {
     agent any
     options {
         timeout(time: 1, unit: 'HOURS')
-        timestamps()
+        #timestamps()
     }
     environment {
        REGISTRY_URL = '700935310038.dkr.ecr.eu-west-3.amazonaws.com'
