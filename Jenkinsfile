@@ -14,13 +14,12 @@ pipeline {
                  docker push $REGISTRY_URL/$IMAGE_NAME:$BUILD_NUMBER
                  '''
             }
-        }
 
             post {
               always {
                  sh ' docker image prune -a --filter "until=24h" --force'
               }
-           }
-       }
-   }
+            }
+        }
+    }
 }
