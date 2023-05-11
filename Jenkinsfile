@@ -16,4 +16,10 @@ pipeline {
             }
         }
     }
+        post {
+           always {
+            sh ' docker image prune -a --filter "until=24h" --force'
+           }
+        }
+    }
 }
