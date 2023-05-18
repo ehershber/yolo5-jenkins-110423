@@ -24,7 +24,7 @@ pipeline {
                            snyk container test $IMAGE_NAME:$BUILD_NUMBER  --severity-threshold=high --file=Dockerfile
 
                          '''
-                    }
+                   }
 
                  sh '''
                  docker tag $IMAGE_NAME:$BUILD_NUMBER $REGISTRY_URL/$IMAGE_NAME:$BUILD_NUMBER
