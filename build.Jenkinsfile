@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+       docker {
+           image '700935310038.dkr.ecr.eu-west-3.amazonaws.com/ehershber-jenkins-agent:latest'
+           args  '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+       }
+    }
     options {
         timeout(time: 1, unit: 'HOURS')
         timestamps()
